@@ -1,4 +1,4 @@
 package com.launchcode.liftoff.controllers;
 
-public class VibeTravelApplication {
+public class UserController {
 }
