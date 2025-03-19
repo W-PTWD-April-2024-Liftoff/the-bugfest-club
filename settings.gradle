@@ -1,1 +1,3 @@
 rootProject.name = 'the-bugfest-club'
+include 'mains'
+

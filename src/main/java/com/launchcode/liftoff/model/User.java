@@ -1,4 +1,4 @@
-package com.launchcode.liftoff.models;
+package com.launchcode.liftoff.model;
 
 import java.util.List;
 import jakarta.persistence.*;

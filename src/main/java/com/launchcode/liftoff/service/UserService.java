@@ -1,6 +1,6 @@
 package com.launchcode.liftoff.service;
 
-import com.launchcode.liftoff.User;
+import com.launchcode.liftoff.model.User;
 import java.util.List;
 
 public class UserService {
