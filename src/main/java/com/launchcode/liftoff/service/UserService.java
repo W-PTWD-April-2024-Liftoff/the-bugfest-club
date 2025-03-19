@@ -3,10 +3,10 @@ package com.launchcode.liftoff.service;
 import com.launchcode.liftoff.model.User;
 import java.util.List;
 
-public class UserService {
-    
+public interface UserService {
+
     public List<User> getAllUser();
-     
+
      public User findUserProfileByJwt(String jwt);
      
      public User findUserByEmail(String email);
