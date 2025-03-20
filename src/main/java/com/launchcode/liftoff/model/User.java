@@ -1,5 +1,6 @@
 package com.launchcode.liftoff.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.*;
 
@@ -17,9 +18,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class User {
 
-    @OneToMany
-    @JoinColumn(name = "destination_id")
-    private final List<Destination> destinations = new ArrayList<>();
+//    @OneToMany
+//    @JoinColumn(name = "destination_id")
+//    private final List<Destination> destinations = new ArrayList<>();
 
     @Id
     @GeneratedValue
@@ -76,5 +77,5 @@ public class User {
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-    
+
 }

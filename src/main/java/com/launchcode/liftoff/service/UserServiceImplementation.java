@@ -3,7 +3,7 @@ package com.launchcode.liftoff.service;
 import com.launchcode.liftoff.repository.UserRepository;
 
 
-import com.launchcode.liftoff.User;
+import com.launchcode.liftoff.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
