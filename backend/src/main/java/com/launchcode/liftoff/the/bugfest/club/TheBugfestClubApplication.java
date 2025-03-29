@@ -7,7 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TheBugfestClubApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TheBugfestClubApplication.class, args);
+
+        try {
+            SpringApplication.run(TheBugfestClubApplication.class, args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
