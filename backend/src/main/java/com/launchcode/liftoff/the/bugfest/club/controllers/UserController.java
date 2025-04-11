@@ -4,7 +4,7 @@ package com.launchcode.liftoff.the.bugfest.club.controllers;
 import com.launchcode.liftoff.the.bugfest.club.data.UserRepository;
 import com.launchcode.liftoff.the.bugfest.club.response.AuthResponse;
 import com.launchcode.liftoff.the.bugfest.club.service.UserServiceImplementation;
-import com.launchcode.liftoff.the.bugfest.club.service.UserService;
+//import com.launchcode.liftoff.the.bugfest.club.service.UserService;
 import com.launchcode.liftoff.the.bugfest.club.SecurityConfig.JwtProvider;
 import com.launchcode.liftoff.the.bugfest.club.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +35,8 @@ public class UserController {
     @Autowired
     private UserServiceImplementation customUserDetails;
 
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
 
 
 
