@@ -1,10 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import {
+  EmailShareButton,
+  BlueskyShareButton,
+  FacebookShareButton,
+  WhatsappShareButton,
+  EmailIcon,
+  FacebookIcon,
+  WhatsappIcon,
+  BlueskyIcon,
+} from "react-share";
 
 const TripDetail = () => {
   const location = useLocation();
   const { tripData, formData } = location.state || {};
+  const currentPageUrl = window.location.href;
+
   return (
     <div className="max-w-4xl mx-auto overflow-hidden border bg-white">
       <div className="px-20 py-10">
@@ -126,9 +138,12 @@ const TripDetail = () => {
                 <button className="flex-1 py-2  rounded-lg hover:bg-gray-500 flex items-center justify-center text-white">
                   <span className="mr-2">Save</span>
                 </button>
-                <button className="flex-1 py-2  rounded-lg hover:bg-gray-500  flex items-center justify-center text-white">
-                  <span className="mr-2">Share</span>
-                </button>
+                <EmailShareButton url={currentPageUrl}>
+                  <EmailIcon round={true}></EmailIcon>
+                </EmailShareButton>
+                <FacebookShareButton url={currentPageUrl}>
+                  <FacebookIcon round={true}></FacebookIcon>
+                </FacebookShareButton>
               </div>
             </div>
           </div>

@@ -29,7 +29,7 @@ Setup Instructions:
 4.  Running the Express Server
 
 - In the terminal: node server.js
-- You should see "Server running on port 8080"
+- You should see "Server running on port 3001"
 
 5.  Generating Trips
 
