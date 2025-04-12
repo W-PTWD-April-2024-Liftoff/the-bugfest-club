@@ -24,6 +24,7 @@ Setup Instructions:
 - Add payment information (required for access, can set small limit and require approval to add more)
 - Get API key and save somewhere secure - OpenAI only shows it one time
 - Replace the API key in server.js
+- SOMETIMES OpenAI requires a project name. Go to settings -> General -> Project. There you will find the project name. It will start with pr. It will not change even if you change your API key. Store with API Key and update at the same time.
 - ** BEFORE PUSHING TO GITHUB MAKE SURE TO ERASE KEY AND ADD BACK 'YOUR-API-KEY-HHERE' **
 
 4.  Running the Express Server
