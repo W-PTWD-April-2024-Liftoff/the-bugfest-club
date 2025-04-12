@@ -5,12 +5,6 @@ const axios = require("axios");
 
 const app = express();
 
-// Create OpenAI client
-const openai = new OpenAI({
-  // Replace with your actual OpenAI API key - apiKey
-  // Replace with your actual OpenAI API project (details in README) - project
-});
-
 app.use(cors());
 app.use(express.json());
 
