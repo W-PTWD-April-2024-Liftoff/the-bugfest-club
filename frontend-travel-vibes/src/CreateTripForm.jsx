@@ -1,63 +1,77 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  EmailIcon,
+  EmailShareButton,
+  FacebookIcon,
+  FacebookShareButton,
+  BlueskyShareButton,
+  BlueskyIcon,
+} from "react-share";
 
 const CreateTripForm = () => {
   const [trips, setTrips] = useState([]);
   const [formData, setFormData] = useState({
-    startingLocation: '',
-    budget: '',
-    vibe: '',
-    days: '',
+    startingLocation: "",
+    budget: "",
+    vibe: "",
+    days: "",
   });
+
+  const currentPageUrl = window.location.href;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     // Convert budget to float and days to integer when updating state
-    const parsedValue = name === 'budget' ? parseFloat(value) || '' :
-                       name === 'days' ? parseInt(value) || '' : value;
+    const parsedValue =
+      name === "budget"
+        ? parseFloat(value) || ""
+        : name === "days"
+        ? parseInt(value) || ""
+        : value;
     setFormData({ ...formData, [name]: parsedValue });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Prepare data for API call
     const data = {
       startingLocation: formData.startingLocation,
       budget: parseFloat(formData.budget),
       vibe: formData.vibe,
-      days: parseInt(formData.days)
+      days: parseInt(formData.days),
     };
 
     try {
-      const response = await fetch('http://localhost:8080/api/trips', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8080/api/trips", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
         const responseData = await response.text();
-        console.log('Success:', responseData);
+        console.log("Success:", responseData);
         // Add the trip to local state
         setTrips([...trips, formData]);
         // Reset form
         setFormData({
-          startingLocation: '',
-          budget: '',
-          vibe: '',
-          days: ''
+          startingLocation: "",
+          budget: "",
+          vibe: "",
+          days: "",
         });
-        alert('Trip details sent successfully!');
+        alert("Trip details sent successfully!");
       } else {
-        console.error('Error:', response.status);
-        alert('Failed to send trip details.');
+        console.error("Error:", response.status);
+        alert("Failed to send trip details.");
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred while sending trip details.');
+      console.error("Error:", error);
+      alert("An error occurred while sending trip details.");
     }
   };
 
@@ -143,12 +157,21 @@ const CreateTripForm = () => {
             >
               ADD TRIP
             </button>
-           
+
             <Link to="/">
               <button className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition">
                 BACK TO HOME
               </button>
             </Link>
+            <FacebookShareButton url={currentPageUrl}>
+              <FacebookIcon round={true}></FacebookIcon>
+            </FacebookShareButton>
+            <EmailShareButton url={currentPageUrl}>
+              <EmailIcon round={true}></EmailIcon>
+            </EmailShareButton>
+            <BlueskyShareButton url={currentPageUrl}>
+              <BlueskyIcon round={true}></BlueskyIcon>
+            </BlueskyShareButton>
           </div>
         </form>
 
