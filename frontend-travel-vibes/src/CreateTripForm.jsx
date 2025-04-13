@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CreateTripForm = () => {
   const [trips, setTrips] = useState([]);
@@ -57,6 +58,8 @@ const CreateTripForm = () => {
         });
 
         alert("Trip details sent successfully!");
+
+        // await axios.post("http://localhost:8080/api/trips/", responseData);
       } else {
         console.error("Error:", response.status);
         alert("Failed to send trip details.");
@@ -93,7 +96,10 @@ const CreateTripForm = () => {
           {/* Right side - Trip Details */}
           <div className="md:w-1/2">
             <div className=" bg-gray-50 p-5 rounded-lg">
-              <form className="space-y-4 text-left" onSubmit={handleSubmit}>
+              <form
+                className="space-y-4 text-left"
+                onSubmit={ handleSubmit }
+              >
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Starting Location:

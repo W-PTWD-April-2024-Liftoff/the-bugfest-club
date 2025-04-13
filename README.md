@@ -16,7 +16,9 @@ Setup Instructions:
 Copy paste the whole below into terminal from pwd: the-bugfest-club
 
 - cd frontend-travel-vibes
+- npm install axios
 - npm install react-share
+- npm audit fix
 - npm install react-toastify
 - cd ../openai-server
 - npm install
@@ -36,7 +38,9 @@ Copy paste the whole below into terminal from pwd: the-bugfest-club
 
 4.  Running the Express Server
 
-- In the terminal: node server.js
+- In the terminal:
+  cd ../openai-server
+  node server.js
 - You should see "Server running on port 3001"
 
 5.  Generating Trips
