@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate, BrowserRouter as Router } from 'react-router-dom';
-import AppHeader from './common/AppHeader';
-import Login from './user/login/Login';
-import Signup from './user/signup/Signup';
-import Profile from './user/profile/Profile';
-import OAuth2RedirectHandler from './user/oauth2/OAuth2RedirectHandler';
-import NotFound from './common/NotFound';
-import LoadingIndicator from './common/LoadingIndicator';
-import { getCurrentUser } from './util/APIUtils';
-import { ACCESS_TOKEN } from './constants';
+import React, { useEffect, useState } from "react";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  BrowserRouter as Router,
+} from "react-router-dom";
+import AppHeader from "./common/AppHeader";
+import Login from "./user/login/Login";
+import Signup from "./user/signup/Signup";
+import Profile from "./user/profile/Profile";
+import OAuth2RedirectHandler from "./user/oauth2/OAuth2RedirectHandler";
+import NotFound from "./common/NotFound";
+import LoadingIndicator from "./common/LoadingIndicator";
+import { getCurrentUser } from "./util/APIUtils";
+import { ACCESS_TOKEN } from "./constants";
 import Home from "./Home";
 import CreateTripForm from "./CreateTripForm";
 import TripDetail from "./TripDetail";
 import NavBar from "./components/NavBar";
-import './App.css';
+import "./App.css";
 
-import WelcomeDashboard from './components/DashBoard';
-import { toast } from 'react-toastify';
-import TripPage from "./TripPage";
-
+import WelcomeDashboard from "./components/DashBoard";
+import { toast } from "react-toastify";
 
 const PrivateRoute = ({ authenticated, children }) => {
   const navigate = useNavigate();
@@ -26,7 +29,7 @@ const PrivateRoute = ({ authenticated, children }) => {
   useEffect(() => {
     if (!authenticated) {
       console.log("User not authenticated, redirecting to login...");
-      navigate('/login');
+      navigate("/login");
     }
   }, [authenticated, navigate]);
 
@@ -43,7 +46,7 @@ function App() {
     if (token) {
       // Check if the token is valid (Optional)
       getCurrentUser()
-        .then(response => {
+        .then((response) => {
           setCurrentUser(response);
           setAuthenticated(true);
           setLoading(false);
@@ -62,7 +65,7 @@ function App() {
     setAuthenticated(false); // Update the state
     setCurrentUser(null); // Clear the current user
     toast.success("You're safely logged out!");
-    navigate('/login'); // Redirect to login page
+    navigate("/login"); // Redirect to login page
   };
 
   useEffect(() => {
@@ -82,23 +85,41 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/create-trip" element={<CreateTripForm />} />
 
-
             <Route path="/explore" element={<TripDetail />} />
             <Route path="/trip" element={<TripDetail />} />
-            <Route path="/login" element={<Login authenticated={authenticated} />} />
-            <Route path="/signup" element={<Signup authenticated={authenticated} />} />
-            <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
-            <Route path="/profile" element={
-              <PrivateRoute authenticated={authenticated}>
-                <Profile currentUser={currentUser} />
-              </PrivateRoute>} />
-            <Route path="/dashboard" element={
-              <PrivateRoute authenticated={authenticated}>
-                <WelcomeDashboard username={currentUser?.name || 'Guest'} />
-              </PrivateRoute>} />
-            <Route path="/about" element={<div>About Page (Coming Soon)</div>} />
+            <Route
+              path="/login"
+              element={<Login authenticated={authenticated} />}
+            />
+            <Route
+              path="/signup"
+              element={<Signup authenticated={authenticated} />}
+            />
+            <Route
+              path="/oauth2/redirect"
+              element={<OAuth2RedirectHandler />}
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute authenticated={authenticated}>
+                  <Profile currentUser={currentUser} />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute authenticated={authenticated}>
+                  <WelcomeDashboard username={currentUser?.name || "Guest"} />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/about"
+              element={<div>About Page (Coming Soon)</div>}
+            />
             <Route path="*" element={<NotFound />} />
-              
           </Routes>
         </main>
       </div>
