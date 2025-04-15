@@ -25,13 +25,31 @@ function SignupPage() {
         throw new Error("Passwords do not match");
       }
 
-      const response = await axios.post("http://localhost:8081/auth/signup", {
-        fullName,
-        email,
-        password,
-        role,
-        mobile,
+      // const response = await axios.post(
+      //   "http://localhost:8080/api/auth/signup",
+      //   {
+      // fullName,
+      // email,
+      // password,
+      // role,
+      // mobile,
+      //   }
+      // );
+
+      const response = await fetch("http://localhost:8080/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName: fullName,
+          email: email,
+          password: password,
+          role: role,
+          mobile: mobile,
+        }),
       });
+
       // Handle successful signup
       console.log(response.data);
       history("/dashboard");
