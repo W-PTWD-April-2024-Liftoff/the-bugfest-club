@@ -11,7 +11,7 @@ import {
 
 //not sure the route/endpoint, but trying to fetch the data
 async function fetchTripsJSON() {
-  const response = await fetch("/??");
+  const response = await fetch("localhost:8080/api/trips/tripPlan");
 
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
