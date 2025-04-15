@@ -85,7 +85,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/create-trip" element={<CreateTripForm />} />
 
-            <Route path="/explore" element={<TripDetail />} />
+            <Route path="/explore" element={<Explore />} />
             <Route path="/trip" element={<TripDetail />} />
             <Route
               path="/login"
