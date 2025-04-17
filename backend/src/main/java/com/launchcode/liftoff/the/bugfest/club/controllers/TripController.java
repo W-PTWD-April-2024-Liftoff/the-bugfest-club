@@ -58,9 +58,5 @@ public class TripController {
         }
     }
 
-    @GetMapping("/tripPlans")
-    public Iterable<TravelPlan> getAllTripPlans() {
-        return tripService.getAllTrips();
-    }
 
 }
