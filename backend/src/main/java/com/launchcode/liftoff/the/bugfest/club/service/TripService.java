@@ -7,7 +7,7 @@ import com.launchcode.liftoff.the.bugfest.club.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TripService {
@@ -25,6 +25,7 @@ public class TripService {
     }
 
     public Trip createTrip(Trip trip) {
+
         return tripRepository.save(trip);
     }
 
@@ -41,5 +42,9 @@ public class TripService {
 
         return travelPlanRepository.save(plan);
     }
+    public Iterable<TravelPlan> getAllTrips(){
+        return travelPlanRepository.findAll();
+    }
+
 
 }
