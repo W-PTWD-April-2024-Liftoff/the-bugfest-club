@@ -47,4 +47,9 @@ public class TripService {
     }
 
 
+
+    public Iterable<TravelPlan> getAllTrips(){
+        return travelPlanRepository.findAll();
+    }
+
 }
