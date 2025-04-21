@@ -7,7 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TravelPlanRepository extends JpaRepository<TravelPlan, Long> {
+    Optional<TravelPlan> findByTrip(Trip trip);
+    Iterable<TravelPlan> findByLocationContainingIgnoreCase(String location);
+
 }
