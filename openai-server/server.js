@@ -7,7 +7,8 @@ const app = express();
 
 // Create OpenAI client
 const openai = new OpenAI({
-  apiKey: "", // Replace with your actual OpenAI API key
+  apiKey:
+    "", // Replace with your actual OpenAI API key
 });
 
 app.use(cors());
