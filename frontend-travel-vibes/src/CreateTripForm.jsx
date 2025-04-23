@@ -10,10 +10,6 @@ const CreateTripForm = () => {
     days: "",
   });
 
-  //useState for Unsplash
-  
-  const [resImg, setResImg] = useState([]);
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -49,25 +45,26 @@ const CreateTripForm = () => {
       const travelData = aiData.data;
 
       //2. Unsplash API
-      const imgPrompt = travelData.location;
-      console.log(imgPrompt);
+
       const apiKeyUnsplash = "";
-      const photoResponse = await fetch(
-        `https://api.unsplash.com/search/photos?page=1&query=${imgPrompt}&client_id${apiKeyUnsplash}`
+      const fetchPhoto = await fetch(
+        `https://api.unsplash.com/search/photos?page=1&query=${travelData.location}&client_id=${apiKeyUnsplash}`,
+        {
+          method: "GET",
+        }
       );
 
-      if (!photoResponse.ok) {
-        throw new Error("Photo generation failed");
+      if (!fetchPhoto.ok) {
+        throw new Error("Photo fetch failed");
       }
-
-      const photoData = await photoResponse.json();
-      const photoResult = photoData.results;
+      const photoData = await fetchPhoto.json();
+      const photoResult = {
+        photo: photoData.results[0].urls.thumb,
+      };
       console.log(photoResult);
-      setResImg(photoResult);
 
-      useEffect(() => {
-        photoResponse();
-      }, []);
+      console.log(JSON.stringify(formData));
+      console.log(travelData);
 
       // 3. Save form data to Spring Boot backend
       const saveResponse = await fetch(
