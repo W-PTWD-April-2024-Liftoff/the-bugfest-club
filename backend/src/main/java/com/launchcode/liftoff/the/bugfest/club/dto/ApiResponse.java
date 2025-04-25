@@ -1,4 +1,4 @@
-package com.launchcode.liftoff.the.bugfest.club.payload;
+package com.launchcode.liftoff.the.bugfest.club.dto;
 
 public class ApiResponse {
     private boolean success;

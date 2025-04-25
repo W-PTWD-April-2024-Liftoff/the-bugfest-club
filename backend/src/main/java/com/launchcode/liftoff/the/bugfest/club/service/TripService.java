@@ -6,6 +6,7 @@ import com.launchcode.liftoff.the.bugfest.club.models.TravelPlan;
 import com.launchcode.liftoff.the.bugfest.club.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
@@ -33,17 +34,21 @@ public class TripService {
         Trip trip = plan.getTrip();
 
         if (trip != null) {
-            // Save the Trip first (so it has an ID)
-            Trip savedTrip = tripRepository.save(trip);
+            Trip savedTrip = tripRepository.save(trip);//trip id is saved first
 
-            // Associate the saved trip back to the plan
-            plan.setTrip(savedTrip);
+            plan.setTrip(savedTrip);//later attaching tripId to the plan
         }
 
         return travelPlanRepository.save(plan);
     }
     public Iterable<TravelPlan> getAllTrips(){
         return travelPlanRepository.findAll();
+    }
+
+
+    public Optional<TravelPlan> getTravelPlanById(Long id){
+
+        return travelPlanRepository.findById(id);
     }
 
 }

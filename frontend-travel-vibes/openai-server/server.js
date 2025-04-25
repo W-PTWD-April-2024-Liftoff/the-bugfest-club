@@ -62,7 +62,7 @@ app.post("/api/trips", async (req, res) => {
 
   try {
     const { budget, days, startingLocation, vibe } = req.body;
-    console.log("📦 Request data:", { budget, days, startingLocation, vibe });
+    console.log("Request data:", { budget, days, startingLocation, vibe });
 
     const travelPlan = await generateTravelPlan(
       budget,
@@ -89,5 +89,6 @@ app.post("/api/trips", async (req, res) => {
 
 // Start server
 app.listen(3001, () => {
-  console.log("🚀 Server running on port 3001");
-}
+  console.log("Server running on port 3001");
+});
+

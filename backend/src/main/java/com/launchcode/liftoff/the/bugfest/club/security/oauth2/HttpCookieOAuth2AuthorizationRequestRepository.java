@@ -44,7 +44,6 @@ public class HttpCookieOAuth2AuthorizationRequestRepository implements Authoriza
         authRequestCookie.setMaxAge(cookieExpireSeconds);
         response.addCookie(authRequestCookie);
 
-        // 👉 Add this to save redirect_uri from the request param into a cookie
         String redirectUriAfterLogin = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
         if (redirectUriAfterLogin != null && !redirectUriAfterLogin.isEmpty()) {
             Cookie redirectUriCookie = new Cookie(REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin);

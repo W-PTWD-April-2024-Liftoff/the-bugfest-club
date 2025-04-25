@@ -1,4 +1,4 @@
-package com.launchcode.liftoff.the.bugfest.club.payload;
+package com.launchcode.liftoff.the.bugfest.club.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

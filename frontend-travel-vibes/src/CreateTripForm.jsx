@@ -50,7 +50,7 @@ const CreateTripForm = () => {
       }
       const aiData = await aiResponse.json();
       const travelData = aiData.data;
-      const springPayload = {
+      const stringObject = {
         trip: data,
         tripTitle: travelData.tripTitle,
         location: travelData.location,
@@ -67,7 +67,7 @@ const CreateTripForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(springPayload),
+          body: JSON.stringify(stringObject),
         }
       );
       if (!saveResponse.ok) {
@@ -90,7 +90,7 @@ const CreateTripForm = () => {
       alert("Trip planned and saved successfully!");
     } catch (error) {
       console.error("Submission Error:", error);
-      alert("Something went wrong. Please try again.");
+      alert("Please try again!");
     }
   };
   return (

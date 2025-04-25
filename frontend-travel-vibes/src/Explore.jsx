@@ -13,41 +13,40 @@ const Explore = () => {
   const currentPageUrl = window.location.href;
   const [tripPlans, setTripPlans] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
     const fetchTripsPlans = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8080/api/trips/tripPlan"
-        );
+        const response = await fetch("http://localhost:8080/api/trips/tripPlan");
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        console.log(response);
         const data = await response.json();
-        console.log(data);
+        console.log("Fetched trip plans:", data); // Debug log
         setTripPlans(data);
         setLoading(false);
       } catch (error) {
         console.error("Fetch error:", error);
+        setError(error.message);
         setLoading(false);
       }
     };
     fetchTripsPlans();
   }, []);
 
-  //if (loading) return <div className="text-center text-xl">Loading...</div>;
+  if (loading) return <div className="text-center text-xl">Loading...</div>;
+  if (error) return <div className="text-center text-xl text-red-600">Error: {error}</div>;
 
   return (
     <>
-      <div className="bg-white p-8 w-[1200px] ">
+      <div className="bg-white p-8 w-[1200px] mx-auto">
         <h1 className="text-4xl font-bold text-gray-900 mb-3 text-center">
           Discover Your Perfect Vibe
         </h1>
         <p className="text-lg text-gray-600 text-center mb-6">
-          Explore destinations by how they make you feel, not just where they
-          are on a map.
+          Explore destinations by how they make you feel, not just where they are on a map.
         </p>
       </div>
       {tripPlans.length === 0 ? (
@@ -57,22 +56,22 @@ const Explore = () => {
         </div>
       ) : (
         tripPlans.map((tripPlan) => (
-          <div key={tripPlan.id}>
-            <div className="max-w-4xl mx-auto overflow-hidden border bg-white shadow-md mt-10">
+          <Link to={`/trip/${tripPlan.id}`} key={tripPlan.id}>
+            <div className="max-w-4xl mx-auto overflow-hidden border bg-white shadow-md mt-10 hover:shadow-lg transition-shadow">
               <div className="px-6 py-10">
                 {/* Top Tag */}
                 <div className="flex mb-4">
                   <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
                     The Vibe:{" "}
-                    {tripPlan?.vibe === "inspired_and_creative"
+                    {tripPlan.vibe === "inspired_and_creative"
                       ? "Inspired & Creative"
-                      : tripPlan?.vibe === "refreshed"
+                      : tripPlan.vibe === "refreshed"
                       ? "Refreshed"
-                      : tripPlan?.vibe === "grounded_and_connected"
+                      : tripPlan.vibe === "grounded_and_connected"
                       ? "Grounded & Connected"
-                      : tripPlan?.vibe === "accomplished"
+                      : tripPlan.vibe === "accomplished"
                       ? "Accomplished"
-                      : tripPlan?.vibe === "transformed_and_enlightened"
+                      : tripPlan.vibe === "transformed_and_enlightened"
                       ? "Transformed & Enlightened"
                       : "Your Vibe"}
                   </span>
@@ -82,11 +81,11 @@ const Explore = () => {
                   {/* Left side - Description */}
                   <div className="w-full mb-6 md:w-3/5 md:mb-0">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                      {tripPlan?.tripTitle || "Trip Title"} in{" "}
-                      {tripPlan?.location || "Trip Location"}
+                      {tripPlan.tripTitle || "Trip Title"} in{" "}
+                      {tripPlan.location || "Trip Location"}
                     </h2>
                     <p className="text-gray-600 mb-4">
-                      {tripPlan?.description || "Trip Description"}
+                      {tripPlan.description || "Trip Description"}
                     </p>
 
                     <h3 className="text-xl font-semibold text-gray-800 mb-3">
@@ -97,22 +96,21 @@ const Explore = () => {
                         <span className="mr-2">⭐</span>
                         <span>
                           <b>Highlight:</b>{" "}
-                          {tripPlan?.topActivity || "Highlight Info"}
+                          {tripPlan.topActivity || "Highlight Info"}
                         </span>
                       </li>
                       <li className="flex items-center text-gray-600 mb-3">
                         <span className="mr-2">⭐</span>
                         <span>
                           <b>Experience:</b>{" "}
-                          {tripPlan?.mainAttraction || "Activity Name"}
+                          {tripPlan.mainAttraction || "Activity Name"}
                         </span>
                       </li>
                       <li className="flex items-center text-gray-600 mb-3">
                         <span className="mr-2">⭐</span>
                         <span>
                           <b>Vibe-Inspired Spot:</b>{" "}
-                          {tripPlan?.vibeInspiration ||
-                            "Vibe-related highlight"}
+                          {tripPlan.vibeInspiration || "Vibe-related highlight"}
                         </span>
                       </li>
                     </ul>
@@ -132,7 +130,7 @@ const Explore = () => {
                         <div>
                           <h4 className="font-medium text-gray-800">From:</h4>
                           <p className="text-sm text-gray-600 mb-1">
-                            {tripPlan?.startingLocation}
+                            {tripPlan.startingLocation || "Starting Location"}
                           </p>
                         </div>
 
@@ -141,7 +139,7 @@ const Explore = () => {
                             Best Time to Visit:
                           </h4>
                           <p className="text-sm text-gray-600 capitalize">
-                            {tripPlan?.bestTimeToVisit || "Best Time to Visit"}
+                            {tripPlan.bestTimeToVisit || "Best Time to Visit"}
                           </p>
                         </div>
 
@@ -150,15 +148,15 @@ const Explore = () => {
                             Duration:
                           </h4>
                           <p className="text-sm text-gray-600">
-                            {tripPlan?.days === "1"
+                            {tripPlan.days === "1"
                               ? "Overnight"
-                              : tripPlan?.days === "3"
+                              : tripPlan.days === "3"
                               ? "Weekend"
-                              : tripPlan?.days === "5"
+                              : tripPlan.days === "5"
                               ? "Extended Weekend"
-                              : tripPlan?.days === "7"
+                              : tripPlan.days === "7"
                               ? "Week-long"
-                              : tripPlan?.days === "10"
+                              : tripPlan.days === "10"
                               ? "Extended"
                               : "Trip Length"}
                           </p>
@@ -167,11 +165,11 @@ const Explore = () => {
                         <div>
                           <h4 className="font-medium text-gray-800">Budget:</h4>
                           <p className="text-sm text-gray-600">
-                            {tripPlan?.budget === "500"
+                            {tripPlan.budget === "500"
                               ? "Budget"
-                              : tripPlan?.budget === "2000"
+                              : tripPlan.budget === "2000"
                               ? "Mid-Range"
-                              : tripPlan?.budget === "5000"
+                              : tripPlan.budget === "5000"
                               ? "Luxury"
                               : "Amount to spend"}
                           </p>
@@ -195,7 +193,7 @@ const Explore = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))
       )}
     </>

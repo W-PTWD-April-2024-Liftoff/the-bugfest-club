@@ -20,7 +20,7 @@ const Signup = ({ authenticated }) => {
   return (
     <div className="signup-container">
       <div className="signup-content">
-        <h1 className="signup-title">Signup with SpringSocial</h1>
+        <h1 className="signup-title">Signup To Travel Vibes!!</h1>
         <SocialSignup />
         <div className="or-separator">
           <span className="or-text">OR</span>
@@ -72,7 +72,11 @@ const SignupForm = () => {
         navigate('/login');
       })
       .catch(error => {
-        toast.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
+        const message =
+          error?.response?.data?.message ||
+          error?.message ||
+          'Oops! Something went wrong. Please try again!';
+        toast.error(message);
       });
   };
 

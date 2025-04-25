@@ -1,36 +1,33 @@
-import React from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../constants';
+import { useAuth } from '../../common/AuthContext';
 
 const OAuth2RedirectHandler = () => {
-    const location = useLocation();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { loadUser } = useAuth();
 
+  useEffect(() => {
     const getUrlParameter = (name) => {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        const results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      const regex = new RegExp(`[\\?&]${name}=([^&#]*)`);
+      const results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
     const token = getUrlParameter('token');
-    console.log('token is --->', token);
     const error = getUrlParameter('error');
 
     if (token) {
-        localStorage.setItem(ACCESS_TOKEN, token);
-        return <Navigate to="/dashboard" replace />;
+      localStorage.setItem(ACCESS_TOKEN, token);
+      loadUser(); 
+      navigate('/dashboard');
     } else {
-        return (
-            <Navigate
-                to="/login"
-                replace
-                state={{
-                    from: location,
-                    error: error
-                }}
-            />
-        );
+      navigate('/login', { state: { error } });
     }
+  }, [location, navigate, loadUser]);
+
+  return null;
 };
 
 export default OAuth2RedirectHandler;

@@ -5,10 +5,10 @@ import com.launchcode.liftoff.the.bugfest.club.data.UserRepository;
 import com.launchcode.liftoff.the.bugfest.club.exception.BadRequestException;
 import com.launchcode.liftoff.the.bugfest.club.models.AuthProvider;
 import com.launchcode.liftoff.the.bugfest.club.models.User;
-import com.launchcode.liftoff.the.bugfest.club.payload.ApiResponse;
-import com.launchcode.liftoff.the.bugfest.club.payload.AuthResponse;
-import com.launchcode.liftoff.the.bugfest.club.payload.LoginRequest;
-import com.launchcode.liftoff.the.bugfest.club.payload.SignUpRequest;
+import com.launchcode.liftoff.the.bugfest.club.dto.ApiResponse;
+import com.launchcode.liftoff.the.bugfest.club.dto.AuthResponse;
+import com.launchcode.liftoff.the.bugfest.club.dto.LoginRequest;
+import com.launchcode.liftoff.the.bugfest.club.dto.SignUpRequest;
 import com.launchcode.liftoff.the.bugfest.club.security.TokenProvider;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -68,10 +69,9 @@ public class AuthController {
         User user = new User();
         user.setName(signUpRequest.getName());
         user.setEmail(signUpRequest.getEmail());
-        user.setPassword(signUpRequest.getPassword());
         user.setProvider(AuthProvider.local);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
 
         User result = userRepository.save(user);
 
@@ -80,7 +80,7 @@ public class AuthController {
                 .buildAndExpand(result.getId()).toUri();
 
         return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "User registered successfully@"));
+                .body(new ApiResponse(true, "User registered successfully!!"));
     }
 
 }

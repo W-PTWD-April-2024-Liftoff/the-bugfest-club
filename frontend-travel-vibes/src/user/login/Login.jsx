@@ -9,18 +9,21 @@ import githubLogo from '../../img/github-logo.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = () => {
+const Login = ({ authenticated }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    if (authenticated) {
+      navigate('/dashboard'); 
+    }
     if (location.state && location.state.error) {
       setTimeout(() => {
         toast.error(location.state.error);
         navigate(location.pathname, { replace: true, state: {} });
       }, 100);
     }
-  }, [location, navigate]);
+  }, [authenticated, location, navigate]);
 
   return (
     <div className="login-container">
@@ -56,7 +59,7 @@ const SocialLogin = () => {
   );
 };
 
-const LoginForm = ({ navigate }) => {
+const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -71,13 +74,12 @@ const LoginForm = ({ navigate }) => {
     console.log("Sending:", JSON.stringify(loginRequest));
     login(loginRequest)
       .then(response => {
-        // Store the access token and navigate to dashboard
         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
         toast.success("You're successfully logged in!");
-        navigate("/dashboard"); // Direct navigation after login
+        window.location.href = "/dashboard";
       })
       .catch(error => {
-        toast.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
+        toast.error((error && error.message) || 'Please Try Again');
       });
   };
 

@@ -2,34 +2,8 @@ import React, { useEffect, useState } from "react";
 import { ACCESS_TOKEN } from "../constants";
 import { useNavigate } from "react-router-dom";
 
-function WelcomeDashboard({ username }) {
+function WelcomeDashboard({ username, onLogout }) {
   const [trips, setTrips] = useState([]);
-  const [logoutTriggered, setLogoutTriggered] = useState(false); // State to trigger re-render on logout
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    if (token) {
-      // getSavedTrips(token) // Call the API for trips
-      //   .then(response => {
-      //     setTrips(response);
-      //   })
-      //   .catch(error => {
-      //     console.error("Failed to fetch trips", error);
-      //   });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (logoutTriggered) {
-      navigate("/"); // Redirect immediately after logout
-    }
-  }, [logoutTriggered, navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem(ACCESS_TOKEN);
-    setLogoutTriggered(true); // Trigger the state change that forces a re-render
-  };
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
@@ -58,7 +32,7 @@ function WelcomeDashboard({ username }) {
           <button
             type="button"
             className="btn btn-primary mt-3"
-            onClick={handleLogout}
+            onClick={onLogout}
           >
             Logout
           </button>
